@@ -63,4 +63,4 @@ void rx_interrupt()
 
 Coming soon I'll be uploading make files and python code to generate sweeps like the one below:
 
-![Low Pass Sweep](Docs/Sweep.gif)
+![Low Pass Sweep](Docs/sweep.gif)
