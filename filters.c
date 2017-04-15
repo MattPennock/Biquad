@@ -23,7 +23,7 @@ int main(void)
 
     printf("Denominator Ring: \r\n");
     RB3_print(&(bq.den_coeff));
-}
+}+
 
 void CONFIG_BandPass(biquad_t *bq, float center_freq, float bandwidth)
 {
