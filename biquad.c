@@ -3,6 +3,10 @@
 #include "rb.h"
 #include "biquad.h"
 
+int main() {
+return 0;
+}
+
 void BQ_init(biquad_t *B)
 {
     RB3_init(&B->input_delay);
