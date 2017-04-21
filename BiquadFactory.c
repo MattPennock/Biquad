@@ -42,26 +42,32 @@ status_t lowpass(biquad_t *filter, float center_freq, float Q)
     b1 /= a0;
     b2 /= a0;
     a0 /= a0;
+  
+    /*
+    * printf("LOWPASS W/ CenterFreq @ %.2f Hz, Q = %.2f\r\n", center_freq, Q);
+    * printf("a0 = %f\r\n", a0);
+    * printf("a1 = %f\r\n", a1);
+    * printf("a2 = %f\r\n", a2);
+    * printf("b0 = %f\r\n", b0);
+    * printf("b1 = %f\r\n", b1);
+    * printf("b2 = %f\r\n", b2);
+    */
 
-    
-     printf("LOWPASS W/ CenterFreq @ %.2f Hz, Q = %.2f\r\n", center_freq, Q);
-     printf("a0 = %f\r\n", a0);
-     printf("a1 = %f\r\n", a1);
-     printf("a2 = %f\r\n", a2);
-     printf("b0 = %f\r\n", b0);
-     printf("b1 = %f\r\n", b1);
-     printf("b2 = %f\r\n", b2);
-    
-
-    BQ_setDen(filter, a1, a2);
-    BQ_setNum(filter, b0, b1, b2);
+    BQ_setDen(&filter, a1, a2);
+    BQ_setNum(&filter, b0, b1, b2);
 
     return 0;
 }
 
 status_t highpass(biquad_t *filter, float center_freq, float Q)
 {
-    
+
+    /* HIGHPASS
+     * configure biquad to attenuate frequencies below `center_freq` Hz
+     * `center_freq` a float between 0 and 24,000 Hz (nyquist freq)
+     * `Q` is the quality factor, or peak about the cutoff frequency
+     * `filter` points to an initialized biquad_t strucutre
+     */
 
     float b0, b1, b2, a0, a1, a2;
     float W0, S, C, alpha;
@@ -86,25 +92,24 @@ status_t highpass(biquad_t *filter, float center_freq, float Q)
     b2 /= a0;
     a0 /= a0;
 
+    /*
+    * printf("LOWPASS W/ CenterFreq @ %.2f Hz, Q = %.2f\r\n", center_freq, Q);
+    * printf("a0 = %f\r\n", a0);
+    * printf("a1 = %f\r\n", a1);
+    * printf("a2 = %f\r\n", a2);
+    * printf("b0 = %f\r\n", b0);
+    * printf("b1 = %f\r\n", b1);
+    * printf("b2 = %f\r\n", b2);
+    */
 
-	 printf("Highpass\r\n");
-  	 printf("a0 = %f\r\n", a0);
-     printf("a1 = %f\r\n", a1);
-     printf("a2 = %f\r\n", a2);
-     printf("b0 = %f\r\n", b0);
-     printf("b1 = %f\r\n", b1);
-     printf("b2 = %f\r\n", b2);
-    
-
-    BQ_setDen(filter, a1, a2);
-    BQ_setNum(filter, b0, b1, b2);
+    BQ_setDen(&filter, a1, a2);
+    BQ_setNum(&filter, b0, b1, b2);
 
     return 0;
 }
 
 status_t bandpass(biquad_t *filter, float center_freq, float Q)
 {
-    
 
     float b0, b1, b2, a0, a1, a2;
     float W0, S, C, alpha;
@@ -128,17 +133,7 @@ status_t bandpass(biquad_t *filter, float center_freq, float Q)
     b1 /= a0;
     b2 /= a0;
     a0 /= a0;
-
- 
- 	 printf("Bandpass\r\n");
-  	 printf("a0 = %f\r\n", a0);
-     printf("a1 = %f\r\n", a1);
-     printf("a2 = %f\r\n", a2);
-     printf("b0 = %f\r\n", b0);
-     printf("b1 = %f\r\n", b1);
-     printf("b2 = %f\r\n", b2);
-    
-
+   
     BQ_setDen(filter, a1, a2);
     BQ_setNum(filter, b0, b1, b2);
 
@@ -170,18 +165,8 @@ status_t notch(biquad_t *filter, float center_freq, float Q)
     b1 /= a0;
     b2 /= a0;
     a0 /= a0;
-
-     
-     printf("Notch\r\n");
-  	 printf("a0 = %f\r\n", a0);
-     printf("a1 = %f\r\n", a1);
-     printf("a2 = %f\r\n", a2);
-     printf("b0 = %f\r\n", b0);
-     printf("b1 = %f\r\n", b1);
-     printf("b2 = %f\r\n", b2);
-    
-    
-	BQ_setDen(filter, a1, a2);
+  
+	  BQ_setDen(filter, a1, a2);
     BQ_setNum(filter, b0, b1, b2);
 
     return 0;
@@ -212,16 +197,6 @@ status_t APF(biquad_t *filter, float center_freq, float Q)
     b1 /= a0;
     b2 /= a0;
     a0 /= a0;
-
- 
- 	 printf("APF\r\n");
-  	 printf("a0 = %f\r\n", a0);
-     printf("a1 = %f\r\n", a1);
-     printf("a2 = %f\r\n", a2);
-     printf("b0 = %f\r\n", b0);
-     printf("b1 = %f\r\n", b1);
-     printf("b2 = %f\r\n", b2);
-    
 
     BQ_setDen(filter, a1, a2);
     BQ_setNum(filter, b0, b1, b2);
@@ -255,20 +230,10 @@ status_t peakingEQ(biquad_t *filter, float center_freq, float Q, float A)
     b1 /= a0;
     b2 /= a0;
     a0 /= a0;
-
-     printf("Peaking EQ\r\n");
-  	 printf("a0 = %f\r\n", a0);
-     printf("a1 = %f\r\n", a1);
-     printf("a2 = %f\r\n", a2);
-     printf("b0 = %f\r\n", b0);
-     printf("b1 = %f\r\n", b1);
-     printf("b2 = %f\r\n", b2);
-    
-
-
-    BQ_setDen(filter, a1, a2);
-    BQ_setNum(filter, b0, b1, b2);
-
+  
+    BQ_setDen(&filter, a1, a2);
+    BQ_setNum(&filter, b0, b1, b2);
+  
     return 0;
 }
 
@@ -299,17 +264,6 @@ status_t lowshelf(biquad_t *filter, float center_freq, float Q, float A)
     b2 /= a0;
     a0 /= a0;
 
-    
-     printf("Low Shelf\r\n");
-  	 printf("a0 = %f\r\n", a0);
-     printf("a1 = %f\r\n", a1);
-     printf("a2 = %f\r\n", a2);
-     printf("b0 = %f\r\n", b0);
-     printf("b1 = %f\r\n", b1);
-     printf("b2 = %f\r\n", b2);
-    
-
-
     BQ_setDen(filter, a1, a2);
     BQ_setNum(filter, b0, b1, b2);
 
@@ -321,12 +275,10 @@ status_t highshelf(biquad_t *filter, float center_freq, float Q, float A)
 
     float b0, b1, b2, a0, a1, a2;
     float W0, S, alpha;
-
 	
     W0 = (_TWO_PI * center_freq) / _FS;
     S  = sinf(W0);
     alpha = S / (2*Q);
-    
 
     b0 =    A*( (A+1) - (A-1)*cos(W0) + 2*sqrt(A)*alpha);
     b1 = -2*A*( (A-1) - (A+1)*cos(W0) 				   );
@@ -342,16 +294,6 @@ status_t highshelf(biquad_t *filter, float center_freq, float Q, float A)
     b1 /= a0;
     b2 /= a0;
     a0 /= a0;
-
-   
-   	 printf("High Shelf\r\n");
-  	 printf("a0 = %f\r\n", a0);
-     printf("a1 = %f\r\n", a1);
-     printf("a2 = %f\r\n", a2);
-     printf("b0 = %f\r\n", b0);
-     printf("b1 = %f\r\n", b1);
-     printf("b2 = %f\r\n", b2);
-    
 
     BQ_setDen(filter, a1, a2);
     BQ_setNum(filter, b0, b1, b2);
@@ -371,9 +313,5 @@ int main()
     peakingEQ(&LP, 6000.0f, 1.0f, 1);
     lowshelf(&LP, 6000.0f, 1.0f, 1);
     highshelf(&LP, 6000.0f, 1.0f, 1);
-    
-    
     return 0;
 }
-
-
