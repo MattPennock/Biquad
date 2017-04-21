@@ -38,5 +38,11 @@ float BQ_process(biquad_t *B, float sampleIn)
     /* y[n] = sampleOut, delay previous outputs */
     RB3_push(&B->output_delay, sampleOut);
 
+    /* Prevent clipping */
+    if(sampleOut >= 1.0f)
+    {
+        sampleOut = 0.9999f;
+    }
+
     return sampleOut;
 }
